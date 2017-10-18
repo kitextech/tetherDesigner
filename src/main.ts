@@ -197,7 +197,7 @@ function displayNumbers(sim: Simulation) {
 
     let mass: InfoSet[] = [
         ['Total', 'kg', tp.m_te.toFixed(2)],
-        ['Specific', 'kg/m', (tp.m_te/tp.L_te).toFixed(2)],
+        ['Specific', 'kg/m', (tp.m_te/tp.L_te).toFixed(3)],
         ['Mechanical', 'kg', tp.m_te_mech.toFixed(2)],
         ['Wire', 'kg', tp.m_c_w.toFixed(2)],
         ['Insulation', 'kg', tp.m_c_ins.toFixed(2)],
