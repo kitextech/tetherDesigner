@@ -1,0 +1,45 @@
+.container {
+  width: 500px;
+  display: flex;
+}
+
+.sl0 {
+  width: 250px;
+}
+.sl1 {
+  width: 100px;
+}
+.sl2 {
+  flex-grow: 1;
+}
+
+/* https://css-tricks.com/dont-overthink-flexbox-grids/ */
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+
+/* .flex-grid-thirds {
+  display: flex;
+  justify-content: space-between;
+}
+.flex-grid-thirds .col {
+  width: 32%;
+} */
+
+@media (max-width: 400px) {
+  .flex-grid {
+    display: block;
+  }
+}
+
+svg g.tooltip text {
+  display: none;
+}
+
+svg g.tooltip:hover text {
+  display: block;
+
+}
