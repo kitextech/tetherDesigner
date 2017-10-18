@@ -192,7 +192,18 @@ function displayNumbers(sim: Simulation) {
 
     let tetherInfo: InfoSet[] = [
         ['Tether outside diameter', 'mm', (tp.d_te*1000).toFixed(2)],
-        ['Number of conductors (n_c)', '', tp.n_c],
+        ['Number of conductors (n_c)', '', tp.n_c]
+    ]
+
+    let mass: InfoSet[] = [
+        ['Total', 'kg', tp.m_te.toFixed(2)],
+        ['Specific', 'kg/m', (tp.m_te/tp.L_te).toFixed(2)],
+        ['Mechanical', 'kg', tp.m_te_mech.toFixed(2)],
+        ['Wire', 'kg', tp.m_c_w.toFixed(2)],
+        ['Insulation', 'kg', tp.m_c_ins.toFixed(2)],
+        ['Shield', 'kg', tp.m_c_sh.toFixed(2)],
+        ['Wire Jacket', 'kg', tp.m_te_mech.toFixed(2)],
+        ['Jacket', 'kg', tp.m_te_j.toFixed(2)],
     ]
 
     let materialProperties: InfoSet[] = [
@@ -227,6 +238,7 @@ function displayNumbers(sim: Simulation) {
 
     let info: { [index: string]: InfoSet[] } = {
         TetherInfo: tetherInfo,
+        Mass: mass,
         MaterialProperties: materialProperties,
         CorrectionFactors: correctionFactors,
         SafetyFactors: safetyFactors,

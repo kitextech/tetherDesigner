@@ -12,6 +12,14 @@ export interface TetherComputedValues {
     epsilon: number
     delta: number
     d_te: number
+    L_te: number
+    m_te_mech: number,
+    m_c_w: number,
+    m_c_ins: number,
+    m_c_sh: number,
+    m_c_j: number,
+    m_te_j: number,
+    m_te: number
 }
 
 export class TetherSegment {
@@ -159,6 +167,16 @@ export class TetherSegment {
 
         let d_te = this.d_te(d_te_mech, d_c)
         
+        let m_te_mech = this.mass( 0, d_te_mech, this.rho_te_mech, L_te, 1 )
+        let m_c_w = this.mass( 0, d_c_w, this.rho_c_w, L_te, n_c)
+        let m_c_ins = this.mass( d_c_w, d_c_w + 2 * ( w_c_ins ), this.rho_c_ins, L_te, n_c )
+        let m_c_sh = this.mass( d_c_w + 2 * ( w_c_ins ), d_c_w + 2 * ( w_c_ins + this.w_c_sh), this.rho_c_sh, L_te, n_c )
+        let m_c_j = this.mass( d_c_w + 2 * ( w_c_ins + this.w_c_sh ), d_c_w + 2 * ( w_c_ins + this.w_c_sh + this.w_c_j), this.rho_c_j, L_te, n_c )
+        let m_c = m_c_w + m_c_ins + m_c_sh + m_c_j
+        let m_te_j = this.mass( d_te - 2 * this.w_te_j, d_te, this.rho_te_j, L_te, 1 )
+        let m_te = m_te_mech + m_c + m_te_j
+
+
         this.computedValues = {
             d_te_mech: d_te_mech,
             P_el_k_r: P_el_k_r,
@@ -172,9 +190,23 @@ export class TetherSegment {
             d_c: d_c,
             epsilon: epsilon,
             delta: delta,
-            d_te: d_te
+            d_te: d_te,
+            L_te: L_te,
+            m_te_mech: m_te_mech,
+            m_c_w: m_c_w,
+            m_c_ins: m_c_ins,
+            m_c_sh: m_c_sh,
+            m_c_j: m_c_j,
+            m_te_j: m_te_j,
+            m_te: m_te
         }
 
         return this.computedValues
     }
+
+    // mass calculations
+    mass(inner: number, outer: number, density: number, length: number, count: number) {
+        return Math.PI / 4 * ( outer*outer - inner*inner ) * density * length * count
+    }
+
 }
