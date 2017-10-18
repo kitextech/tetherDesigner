@@ -2,15 +2,32 @@
   width: 500px;
   display: flex;
 }
-
-.sl0 {
+.container .sl0 {
   width: 250px;
 }
-.sl1 {
+.container .sl1 {
   width: 100px;
 }
-.sl2 {
+.container .sl2 {
   flex-grow: 1;
+}
+
+.containerInput {
+  width: 500px;
+  display: flex;
+}
+.containerInput .sl0 {
+  width: 150px;
+}
+.containerInput .sl1 {
+  width: 80px;
+}
+.containerInput .sl2 {
+  width: 50px;
+}
+.containerInput .sl3 {
+  flex-grow: 1;
+  
 }
 
 /* https://css-tricks.com/dont-overthink-flexbox-grids/ */
@@ -21,13 +38,6 @@
   flex: 1;
 }
 
-/* .flex-grid-thirds {
-  display: flex;
-  justify-content: space-between;
-}
-.flex-grid-thirds .col {
-  width: 32%;
-} */
 
 @media (max-width: 400px) {
   .flex-grid {

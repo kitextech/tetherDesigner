@@ -1,7 +1,3 @@
-import { ENV } from "./util"
-
-
-
 export interface TetherComputedValues {
     d_te_mech : number
     P_el_k_r: number

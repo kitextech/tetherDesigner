@@ -6,13 +6,19 @@ import { TetherComputedValues, TetherSegment } from "./tether"
 import * as d3 from 'd3'
 
 
+interface SimConfigItem {
+    u: string, // unit
+    v: number, // value
+    r?: [number, number] // optional range
+}
+
 interface SimulationConfig {
-    [key: string]: number
-    Power: number
-    Force: number
-    Voltage: number
-    TetherEfficiency: number
-    TetherLength: number
+    [key: string]: SimConfigItem
+    Power: SimConfigItem
+    Force: SimConfigItem
+    Voltage: SimConfigItem
+    TetherEfficiency: SimConfigItem
+    TetherLength: SimConfigItem
 }
 
 class Simulation {
@@ -23,18 +29,18 @@ class Simulation {
         this.tether = new TetherSegment()
         
         // pre compute actual tether dimensions. 
-        this.tether.compute(config.Force, config.Power, 0.9, config.TetherEfficiency, config.Voltage, config.TetherLength)
+        this.tether.compute(config.Force.v, config.Power.v, 0.9, config.TetherEfficiency.v, config.Voltage.v, config.TetherLength.v)
     }
 }
 
 $(document).ready(() => {
 
     var defaultConfig: SimulationConfig = {
-        Power: 100e3,
-        Force: 30e3,
-        Voltage: 2e3,
-        TetherEfficiency: 0.97,
-        TetherLength: 300
+        Power: {v:100e3, u:"W"},
+        Force: {v:30e3, u:"N"},
+        Voltage: {v:2e3, u:"V"},
+        TetherEfficiency: {v:0.97, u:"", r: [0.9, 0.999]},
+        TetherLength: {v:300, u:"m"}
     }
     
     let sim = new Simulation(defaultConfig)
@@ -44,29 +50,33 @@ $(document).ready(() => {
     for (let key in defaultConfig) {
         if (defaultConfig.hasOwnProperty(key)) {
 
-            let value = defaultConfig[key]
-            let topDiv = $('<div></div>').addClass('container')
+            let item = defaultConfig[key]
+            let topDiv = $('<div></div>').addClass('containerInput')
             let keyDiv = $("<div>" + key + ":</div>").addClass('sl0')
-            let pDiv = $('<div></div>').addClass('sl1')
+            let pDiv = $('<div></div>').addClass('sl1').html(item.v.toString())
+            let unitDiv = $('<div></div>').addClass('sl2').html(item.u)
 
             topDiv.append(keyDiv)
             topDiv.append(pDiv)
-            pDiv.html(value.toString())
+            topDiv.append(unitDiv)
+
+            let min = "r" in item ? item.r[0] : item.v * 0.2
+            let max = "r" in item ? item.r[1] : item.v * 5
 
             let slider = $('<div></div>').slider({
-                min: value * 0.2,
-                max: value * 5,
-                step: value / 100,
-                value: value,
+                min: min ,
+                max: max,
+                step: (max-min) / 100,
+                value: item.v,
                 slide: (event, ui) => {
-                    defaultConfig[key] = ui.value
+                    defaultConfig[key].v = ui.value
                     pDiv.html(ui.value.toString())
                     let sim = new Simulation(defaultConfig)
                     displayComputedValues(sim.tether.computedValues)
                     displayNumbers(sim)
 
                 }
-            }).addClass('sl2')
+            }).addClass('sl3')
 
             topDiv.append(slider)
 
