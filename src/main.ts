@@ -47,24 +47,23 @@ $(document).ready(() => {
     displayNumbers(sim)
     displayComputedValues(sim.tether.computedValues)
     
+    $("#sliders").append($('<h3>Input</h3>')) // add a section title
+
     for (let key in defaultConfig) {
         if (defaultConfig.hasOwnProperty(key)) {
 
             let item = defaultConfig[key]
             let topDiv = $('<div></div>').addClass('containerInput')
-            let keyDiv = $("<div>" + key + ":</div>").addClass('sl0')
+            topDiv.append( $("<div>" + key + ":</div>").addClass('sl0') )
             let pDiv = $('<div></div>').addClass('sl1').html(item.v.toString())
-            let unitDiv = $('<div></div>').addClass('sl2').html(item.u)
-
-            topDiv.append(keyDiv)
             topDiv.append(pDiv)
-            topDiv.append(unitDiv)
+            topDiv.append( $('<div></div>').addClass('sl2').html(item.u) )
 
             let min = "r" in item ? item.r[0] : item.v * 0.2
             let max = "r" in item ? item.r[1] : item.v * 5
 
             let slider = $('<div></div>').slider({
-                min: min ,
+                min: min,
                 max: max,
                 step: (max-min) / 100,
                 value: item.v,
@@ -79,7 +78,6 @@ $(document).ready(() => {
             }).addClass('sl3')
 
             topDiv.append(slider)
-
             $("#sliders").append(topDiv)
         }
     }
@@ -110,13 +108,11 @@ function displayComputedValues(tp: TetherComputedValues) {
 
     let ts = new TetherSegment()
     
-
     let circles: CircleDef[] = [
         {x: 0, y: 0, dia: tp.d_te, c: 'lightblue', d: 'Tether jacket', t: ts.w_te_j},
         {x: 0, y: 0, dia: tp.d_te-2*ts.w_te_j, c: 'white', d: 'Empty space'},
         {x: 0, y: 0, dia: tp.d_te_mech, c: 'grey', d: 'Mechanical strain'},
     ]
-
 
     for (var i = 0; i < tp.n_c; i++) {
         let t = 2*Math.PI * i / tp.n_c
@@ -132,8 +128,6 @@ function displayComputedValues(tp: TetherComputedValues) {
     }
 
     d3.select(`#${id}`).selectAll("svg").remove()
-    
-
 
     let svg = d3.select(`#${id}`).append("svg")
         .attr("width", widthTotal)
