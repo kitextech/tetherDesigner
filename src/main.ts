@@ -180,6 +180,13 @@ function displayComputedValues(tp: TetherComputedValues) {
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(xmm))
+    
+    // Add the X label
+    svg.append("text")      // text label for the x axis
+        .attr("x", width / 2 + margin.left )
+        .attr("y",  height + margin.bottom)
+        .style("text-anchor", "middle")
+        .text("mm")
 }
 
 
