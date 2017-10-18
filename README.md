@@ -4,7 +4,7 @@ Based on the method described in appendix A of F. Bauer, R. M. Kennel: “Fault 
 
 We though it would be worthwile to publish a implimentation of the algorithm combined with a visualisation.
 
-![Tether Designer Visualisation](/tetherDesigner.png?raw=true "Tether Designer")
+![Tether Designer Visualisation](/tetherDesignerSmall.png?raw=true "Tether Designer")
 
 ## install & use
 
