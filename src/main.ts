@@ -202,7 +202,7 @@ function displayNumbers(sim: Simulation) {
         ['Wire', 'kg', tp.m_c_w.toFixed(2)],
         ['Insulation', 'kg', tp.m_c_ins.toFixed(2)],
         ['Shield', 'kg', tp.m_c_sh.toFixed(2)],
-        ['Wire Jacket', 'kg', tp.m_te_mech.toFixed(2)],
+        ['Wire Jacket', 'kg', tp.m_c_j.toFixed(2)],
         ['Jacket', 'kg', tp.m_te_j.toFixed(2)],
     ]
 
