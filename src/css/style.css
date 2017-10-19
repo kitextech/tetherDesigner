@@ -1,47 +1,31 @@
-#d3playground div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
-
-.line {
-  fill: none;
-  stroke-width: 2px;
-}
-
-.line0 {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
-
-.line1 {
-  fill: none;
-  stroke: springgreen;
-  stroke-width: 2px;
-}
-
-.line3 {
-  fill: none;
-  stroke: burlywood;
-  stroke-width: 2px;
-}
-
 .container {
   width: 500px;
   display: flex;
 }
-
-.sl0 {
-  width: 150px;
+.container .sl0 {
+  width: 250px;
 }
-.sl1 {
+.container .sl1 {
   width: 100px;
 }
-.sl2 {
+.container .sl2 {
+  flex-grow: 1;
+}
+
+.containerInput {
+  width: 500px;
+  display: flex;
+}
+.containerInput .sl0 {
+  width: 150px;
+}
+.containerInput .sl1 {
+  width: 80px;
+}
+.containerInput .sl2 {
+  width: 50px;
+}
+.containerInput .sl3 {
   flex-grow: 1;
 }
 
@@ -53,13 +37,6 @@
   flex: 1;
 }
 
-/* .flex-grid-thirds {
-  display: flex;
-  justify-content: space-between;
-}
-.flex-grid-thirds .col {
-  width: 32%;
-} */
 
 @media (max-width: 400px) {
   .flex-grid {
