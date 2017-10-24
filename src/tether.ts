@@ -45,8 +45,8 @@ export class TetherSegment {
     w_te_j = 1.0e-3// m
 
     // Safety factors
-    S_te_mech = 3
-    S_te_ins = 3
+    // S_te_mech = 3
+    // S_te_ins = 3
 
     // corrections factors
     f_c_w = 1.1
@@ -55,6 +55,8 @@ export class TetherSegment {
     f_te_m_i = 1.1
 
     computedValues: TetherComputedValues
+
+    constructor( readonly S_te_mech: number, readonly  S_te_ins: number) {}
 
     // A.1
     // Tether force
@@ -67,7 +69,7 @@ export class TetherSegment {
     A_te_mech(F_te_r: number): number {
         return this.S_te_mech * F_te_r / this.sigma_te_mech
     }
-    
+
     // diameter of mechanical tether component
     d_te_mech(F_te_mech: number): number {
         return Math.sqrt( 4*this.A_te_mech(F_te_mech) / Math.PI )
@@ -104,7 +106,7 @@ export class TetherSegment {
     // A.7 Total diameter
     // 20
     d_te(d_te_mech: number, d_c: number): number {
-        return d_te_mech + 2*d_c + 2*this.w_te_j 
+        return d_te_mech + 2*d_c + 2*this.w_te_j
     }
 
     // 21
@@ -135,15 +137,15 @@ export class TetherSegment {
     }
 
     compute(F_te_r: number, P_r: number, eta_k_r: number, eta_te_r: number, U_te_r: number, L_te: number): TetherComputedValues {
-        
+
         let d_te_mech = this.d_te_mech(F_te_r)
         let P_el_k_r = this.P_el_k_r(eta_k_r, P_r)
         let I_te_r = this.I_te_r(P_el_k_r, U_te_r)
         let P_te_loss_r = this.P_te_loss_r(eta_te_r, P_el_k_r)
         let R_te = this.R_te(P_te_loss_r, I_te_r)
-        
+
         let n_c = 0 // two conductors
-        
+
         do {
             n_c += 2
             var R_c_w = this.R_c_w(R_te, n_c)
@@ -166,7 +168,7 @@ export class TetherSegment {
         delta = this.delta(epsilon, d_te_mech, d_c)
 
         let d_te = this.d_te(d_te_mech, d_c)
-        
+
         let m_te_mech = this.mass( 0, d_te_mech, this.rho_te_mech, L_te, 1 )
         let m_c_w = this.mass( 0, d_c_w, this.rho_c_w, L_te, n_c)
         let m_c_ins = this.mass( d_c_w, d_c_w + 2 * ( w_c_ins ), this.rho_c_ins, L_te, n_c )

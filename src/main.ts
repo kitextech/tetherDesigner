@@ -19,17 +19,19 @@ interface SimulationConfig {
     Voltage: SimConfigItem
     TetherEfficiency: SimConfigItem
     TetherLength: SimConfigItem
+    SafetyFMech: SimConfigItem
+    SafetyFIns: SimConfigItem
 }
 
 class Simulation {
 
     tether: TetherSegment
 
-    constructor(config: SimulationConfig) {
-        this.tether = new TetherSegment()
+    constructor(c: SimulationConfig) {
+        this.tether = new TetherSegment(c.SafetyFMech.v, c.SafetyFIns.v)
         
         // pre compute actual tether dimensions. 
-        this.tether.compute(config.Force.v, config.Power.v, 0.9, config.TetherEfficiency.v, config.Voltage.v, config.TetherLength.v)
+        this.tether.compute(c.Force.v, c.Power.v, 0.9, c.TetherEfficiency.v, c.Voltage.v, c.TetherLength.v)
     }
 }
 
@@ -40,7 +42,9 @@ $(document).ready(() => {
         Force: {v:30e3, u:"N"},
         Voltage: {v:2e3, u:"V"},
         TetherEfficiency: {v:0.97, u:"", r: [0.9, 0.999]},
-        TetherLength: {v:300, u:"m"}
+        TetherLength: {v:300, u:"m"},
+        SafetyFMech: {v:3, u:"", r: [1, 5]},
+        SafetyFIns: {v:3, u:"", r: [1, 5]},
     }
     
     let sim = new Simulation(defaultConfig)

@@ -6,7 +6,8 @@ var tsify = require("tsify");
 var gutil = require("gulp-util");
 var paths = {
     pages: ['src/*.html'],
-    css: ['src/css/*.css']
+    css: ['src/css/*.css'],
+    lib: ['src/lib/*.js'],    
 };
 
 var watchedBrowserify = watchify(browserify({
@@ -29,6 +30,11 @@ gulp.task("copy-css", function () {
         .pipe(gulp.dest("docs/css"));
 });
 
+gulp.task("copy-lib", function () {
+    return gulp.src(paths.lib)
+        .pipe(gulp.dest("docs/lib"));
+});
+
 function bundle() {
     return watchedBrowserify
         .bundle()
@@ -36,9 +42,10 @@ function bundle() {
         .pipe(gulp.dest("docs"));
 }
 
-gulp.task("default", ["copy-html", "copy-css"], () => {
+gulp.task("default", ["copy-html", "copy-css", "copy-lib"], () => {
     gulp.watch(paths.pages, ['copy-html'])
     gulp.watch(paths.css, ['copy-css'])
+    gulp.watch(paths.lib, ['copy-lib'])    
     bundle()
 } )
 

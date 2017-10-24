@@ -2,32 +2,28 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Tether designer</title>
+        <title>Hello World!</title>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="./css/style.css">
         
-        <!-- https://code.jquery.com/ui/1.12.1/themes/overcast/jquery-ui.css -->
-
         <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-        <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-
+        <script src="./lib/jquery.ui.touch-punch.min.js"></script>
+        
     </head>
     <body>
         
 
         <div class="flex-grid">
             <div class="col">
-                <div>
-                    <h2>Tether designer for kites</h2>
-                    <p>Based on the method described in appendix A of F. Bauer, R. M. Kennel: “Fault Tolerant Power Electronic System for Drag Power Kites”. Submitted to “Journal of Renewable Energy” (Hindawi), 2017. PREPRINT
-                        <a href="http://www.eal.ei.tum.de/research/projects/research-bauer/">Bauer research (has link to a PREPRINT PDF)</a>.
-                    </p>
-                    <p>The source code is available at <a href="https://github.com/kitextech/tetherDesigner">Github</a></p>
-                </div>
                 <div id="sliders"></div>
                 <div id="dragComponents"></div>
                 <div id="tetherPlot"></div>
+            </div>
+            <div class="col">
+                <div id="windAlt"></div>
+                <div id="tetherGeometry"></div>
+                <div id="forceGeometry"></div>
             </div>
             <div class="col">
                 <div id="info"></div>
